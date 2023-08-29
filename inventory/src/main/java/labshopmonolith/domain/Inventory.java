@@ -10,7 +10,6 @@ import lombok.Data;
 @Entity
 @Table(name = "Inventory_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Inventory {
 
     @Id
@@ -29,12 +28,9 @@ public class Inventory {
         return inventoryRepository;
     }
 
-    //<<< Clean Arch / Port Method
     public void decreaseStock(DecreaseStockCommand decreaseStockCommand) {
         //implement business logic here:
 
     }
-    //>>> Clean Arch / Port Method
 
 }
-//>>> DDD / Aggregate Root
