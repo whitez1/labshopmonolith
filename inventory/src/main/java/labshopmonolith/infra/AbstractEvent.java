@@ -12,7 +12,6 @@ import org.springframework.transaction.support.TransactionSynchronizationAdapter
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.MimeTypeUtils;
 
-//<<< Clean Arch / Outbound Adaptor
 public class AbstractEvent {
 
     String eventType;
@@ -29,9 +28,6 @@ public class AbstractEvent {
     }
 
     public void publish() {
-        /**
-         * spring streams 방식
-         */
         KafkaProcessor processor = InventoryApplication.applicationContext.getBean(
             KafkaProcessor.class
         );
@@ -80,4 +76,3 @@ public class AbstractEvent {
         return getEventType().equals(getClass().getSimpleName());
     }
 }
-//>>> Clean Arch / Outbound Adaptor
