@@ -16,25 +16,22 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String productId;
-
     private Integer qty;
-
     private String customerId;
-
     private Double amount;
 
     @PostPersist
     public void onPostPersist() {
+    labshopmonolith.external.DecreaseStockCommand decreaseStockCommand = new labshopmonolith.external.DecreaseStockCommand();
 
-        labshopmonolith.external.DecreaseStockCommand decreaseStockCommand = new labshopmonolith.external.DecreaseStockCommand();
-        MonolithApplication.applicationContext
-            .getBean(labshopmonolith.external.InventoryService.class)
-            .decreaseStock(decreaseStockCommand);
-
-        OrderPlaced orderPlaced = new OrderPlaced(this);
-        orderPlaced.publishAfterCommit();
+      // 주문수량 정보를 커맨드 객체에 적재한다. 
+    decreaseStockCommand.setQty(getQty()); 
+    
+      // InventoryService Proxy를 통해 커맨드 객체와 함께 원격호출 한다.
+    MonolithApplication.applicationContext
+        .getBean(labshopmonolith.external.InventoryService.class)
+        .decreaseStock((Long.valueOf(getProductId())), decreaseStockCommand);
     }
 
     @PrePersist
