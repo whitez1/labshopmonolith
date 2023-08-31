@@ -23,15 +23,15 @@ public class Order {
 
     @PostPersist
     public void onPostPersist() {
-    labshopmonolith.external.DecreaseStockCommand decreaseStockCommand = new labshopmonolith.external.DecreaseStockCommand();
-
-      // 주문수량 정보를 커맨드 객체에 적재한다. 
-    decreaseStockCommand.setQty(getQty()); 
+        labshopmonolith.external.DecreaseStockCommand decreaseStockCommand = new labshopmonolith.external.DecreaseStockCommand();
     
-      // InventoryService Proxy를 통해 커맨드 객체와 함께 원격호출 한다.
-    MonolithApplication.applicationContext
-        .getBean(labshopmonolith.external.InventoryService.class)
-        .decreaseStock((Long.valueOf(getProductId())), decreaseStockCommand);
+          // 주문수량 정보를 커맨드 객체에 적재한다. 
+        decreaseStockCommand.setQty(getQty()); 
+        
+          // InventoryService Proxy를 통해 커맨드 객체와 함께 원격호출 한다.
+        MonolithApplication.applicationContext
+            .getBean(labshopmonolith.external.InventoryService.class)
+            .decreaseStock((Long.valueOf(getProductId())), decreaseStockCommand);
     }
 
     @PrePersist
