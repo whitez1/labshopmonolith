@@ -30,14 +30,10 @@ spring:
       bindings:
         event-in:
           group: monolith
-#<<< EDA / Topic Name
           destination: labshopmonolith
-#>>> EDA / Topic Name
           contentType: application/json
         event-out:
-#<<< EDA / Topic Name
           destination: labshopmonolith
-#>>> EDA / Topic Name
           contentType: application/json
 
 logging:
