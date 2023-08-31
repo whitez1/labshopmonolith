@@ -15,7 +15,6 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Long stock;
 
     @PostPersist
